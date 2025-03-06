@@ -1,0 +1,12 @@
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/bin/Debug/net8.0/ModelGenerator.deps.json
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/bin/Debug/net8.0/ModelGenerator.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/bin/Debug/net8.0/ModelGenerator.pdb
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.GeneratedMSBuildEditorConfig.editorconfig
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.AssemblyInfoInputs.cache
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.AssemblyInfo.cs
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.csproj.CoreCompileInputs.cache
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/refint/ModelGenerator.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.pdb
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ref/ModelGenerator.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/obj/Debug/net8.0/ModelGenerator.csproj.AssemblyReference.cache

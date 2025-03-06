@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Models.cs" />
+      <Compile Remove="ModelTranspiler.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Out\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="ModelGenerator.csproj" />
+    </ItemGroup>
+
+</Project>
