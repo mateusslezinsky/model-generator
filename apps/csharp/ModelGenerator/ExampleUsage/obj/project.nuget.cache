@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "v2UguAqo7xw=",
+  "success": true,
+  "projectFilePath": "/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/ExampleUsage/ExampleUsage.csproj",
+  "expectedPackageFiles": [
+    "/home/mateus/.nuget/packages/microsoft.codeanalysis.analyzers/3.11.0/microsoft.codeanalysis.analyzers.3.11.0.nupkg.sha512",
+    "/home/mateus/.nuget/packages/microsoft.codeanalysis.common/4.13.0/microsoft.codeanalysis.common.4.13.0.nupkg.sha512",
+    "/home/mateus/.nuget/packages/microsoft.codeanalysis.csharp/4.13.0/microsoft.codeanalysis.csharp.4.13.0.nupkg.sha512",
+    "/home/mateus/.nuget/packages/pluralizeservice.core/1.2.21147.2/pluralizeservice.core.1.2.21147.2.nupkg.sha512",
+    "/home/mateus/.nuget/packages/system.collections.immutable/8.0.0/system.collections.immutable.8.0.0.nupkg.sha512",
+    "/home/mateus/.nuget/packages/system.reflection.metadata/8.0.0/system.reflection.metadata.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

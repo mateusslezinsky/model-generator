@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{FAC6345F-A850-420F-AC62-76C98CDCADAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Typescript", "Typescript\Typescript.csproj", "{BEC539E8-A2BC-4A61-B53F-8532CD524A9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleUsage", "ExampleUsage\ExampleUsage.csproj", "{4B852DAC-2AAD-4B8A-AA88-07FB21E6D545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAC6345F-A850-420F-AC62-76C98CDCADAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAC6345F-A850-420F-AC62-76C98CDCADAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAC6345F-A850-420F-AC62-76C98CDCADAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAC6345F-A850-420F-AC62-76C98CDCADAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC539E8-A2BC-4A61-B53F-8532CD524A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC539E8-A2BC-4A61-B53F-8532CD524A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC539E8-A2BC-4A61-B53F-8532CD524A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC539E8-A2BC-4A61-B53F-8532CD524A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B852DAC-2AAD-4B8A-AA88-07FB21E6D545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B852DAC-2AAD-4B8A-AA88-07FB21E6D545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B852DAC-2AAD-4B8A-AA88-07FB21E6D545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B852DAC-2AAD-4B8A-AA88-07FB21E6D545}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

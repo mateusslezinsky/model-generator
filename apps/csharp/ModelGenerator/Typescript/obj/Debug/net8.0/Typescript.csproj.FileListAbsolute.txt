@@ -1,0 +1,13 @@
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/bin/Debug/net8.0/Typescript.deps.json
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/bin/Debug/net8.0/Typescript.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/bin/Debug/net8.0/Typescript.pdb
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.csproj.AssemblyReference.cache
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.GeneratedMSBuildEditorConfig.editorconfig
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.AssemblyInfoInputs.cache
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.AssemblyInfo.cs
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.csproj.CoreCompileInputs.cache
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.sourcelink.json
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/refint/Typescript.dll
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/Typescript.pdb
+/home/mateus/Documents/Development/Personal/model-generator/apps/csharp/ModelGenerator/Typescript/obj/Debug/net8.0/ref/Typescript.dll
