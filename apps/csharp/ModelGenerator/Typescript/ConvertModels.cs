@@ -34,7 +34,7 @@ public class ConvertModels
                 var symbol = semanticModel.GetDeclaredSymbol(declaration);
                 if (symbol != null && symbol.ContainingNamespace != null)
                 {
-                    string containingNamespace = symbol.ContainingNamespace.ToString();
+                    var containingNamespace = symbol.ContainingNamespace.ToString();
                     if (containingNamespace != null)
                     {
                         var isModelNamespace = containingNamespace.Contains("DTOs") ||
@@ -94,15 +94,16 @@ public class ConvertModels
         var modelSymbols = GetFullNamespaceModelSymbols(syntaxTrees, compilation);
 
         var modelNames = new HashSet<string>(modelSymbols.Select(s => s.Name));
-        CsharpToTypescript.SetGlobalConvertedTypes(modelNames);
+        var parser = new CsharpToTypescript();
+        parser.globalConvertedTypes = modelNames;
 
         foreach (var symbol in modelSymbols)
         {
-            string folder = Paths.GetPredefinedOutputFolder(symbol.Name, _outSubFolders);
+            var folder = Paths.GetPredefinedOutputFolder(symbol.Name, _outSubFolders);
 
-            var tsType = CsharpToTypescript.GenerateInterfaces(symbol, folder, _typescriptOutPath, _outSubFolders);
-            string fileName = StringUtils.FirstCharToLowerCase(tsType.Name.Replace(".ts", ""));
-            string fullFolderPath = string.IsNullOrEmpty(folder)
+            var tsType = parser.GenerateInterfaces(symbol, folder, _typescriptOutPath, _outSubFolders);
+            var fileName = StringUtils.FirstCharToLowerCase(tsType.Name.Replace(".ts", ""));
+            var fullFolderPath = string.IsNullOrEmpty(folder)
                 ? _typescriptOutPath
                 : Path.Combine(_typescriptOutPath, folder);
 
@@ -111,7 +112,7 @@ public class ConvertModels
                 Directory.CreateDirectory(fullFolderPath);
             }
 
-            string fullPath = Path.Combine(fullFolderPath, fileName + ".ts");
+            var fullPath = Path.Combine(fullFolderPath, fileName + ".ts");
             File.WriteAllLines(fullPath, tsType.Lines);
         }
         

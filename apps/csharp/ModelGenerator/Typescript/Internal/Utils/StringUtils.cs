@@ -1,8 +1,9 @@
 using System.Text.RegularExpressions;
+using Typescript.Internal.Interfaces;
 
 namespace Typescript.Internal.Utils;
 
-public class StringUtils
+public class StringUtils : IStringUtils
 {
     public static string CamelCaseName(string name)
     {
@@ -22,5 +23,11 @@ public class StringUtils
     {
         var match = Regex.Match(typeName, @"^([A-Z]+[a-z]*)");
         return match.Success ? match.Groups[1].Value : typeName;
+    }
+    
+    public static string PascalToUppercaseWithUnderscores(string input)
+    {
+        return Regex.Replace(input, "(?<!^)([A-Z])", "_$1")
+            .ToUpperInvariant();
     }
 }

@@ -2,7 +2,7 @@ namespace Typescript.Internal.Domain;
 
 public class Constants
 {
-    internal static IDictionary<string, string> ConvertedTypes = new Dictionary<string, string>
+    internal static readonly IDictionary<string, string> ConvertedTypes = new Dictionary<string, string>
     {
         ["System.String"] = "string",
         ["String"] = "string",
@@ -39,4 +39,18 @@ public class Constants
         ["System.DateTime"] = "Date",
         ["DateTime"] = "Date",
     };
+
+    internal static readonly IEnumerable<string> ListLikeInterfaces = new List<string>
+    {
+        "List",
+        "IEnumerable",
+        "ICollection"
+    };
+    
+    internal static readonly IEnumerable<string> DictionaryLikeInterfaces = new List<string>
+    {
+        "Dictionary",
+        "IDictionary"
+    };
+    
 }

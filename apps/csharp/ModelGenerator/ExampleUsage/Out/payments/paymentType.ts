@@ -1,6 +1,6 @@
 export enum PaymentType {
-  CreditCard = 0,
-  PayPal = 1,
-  BankTransfer = 2,
-  Cash = 3,
+  CREDIT_CARD = 0,
+  PAY_PAL = 1,
+  BANK_TRANSFER = 2,
+  CASH = 3,
 }

@@ -1,6 +1,6 @@
 export enum ShippingStatus {
-  NotShipped = 0,
-  Shipped = 1,
-  Delivered = 2,
-  Returned = 3,
+  NOT_SHIPPED = 0,
+  SHIPPED = 1,
+  DELIVERED = 2,
+  RETURNED = 3,
 }

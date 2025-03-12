@@ -1,8 +1,9 @@
 using PluralizeService.Core;
+using Typescript.Internal.Interfaces;
 
 namespace Typescript.Internal.Utils;
 
-public class Paths
+public class Paths : IPaths
 {
     public static string GetPredefinedOutputFolder(string typeName, IEnumerable<string> folders)
     {
@@ -26,9 +27,12 @@ public class Paths
         string depAbs = string.IsNullOrEmpty(dependencyRelativeFolder)
             ? basePath
             : Path.Combine(basePath, dependencyRelativeFolder);
+        
         currentAbs = Path.GetFullPath(currentAbs).Replace("\\", "/");
         depAbs = Path.GetFullPath(depAbs).Replace("\\", "/");
+        
         string relPath = Path.GetRelativePath(currentAbs, depAbs).Replace("\\", "/");
+        
         if (string.IsNullOrEmpty(relPath) || relPath == ".")
             return $"./{depFileName}";
         if (!relPath.StartsWith("."))

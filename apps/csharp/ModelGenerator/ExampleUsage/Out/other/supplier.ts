@@ -5,5 +5,5 @@ export interface Supplier {
   contactName: string;
   phone: string;
   products: Product[];
-  additionalInfo: Dictionary;
+  additionalInfo: { [key: string]: string };
 }

@@ -1,19 +1,15 @@
 using Microsoft.CodeAnalysis;
 using Typescript.Internal.Utils;
 using Typescript.Internal.Domain;
+using Typescript.Internal.Interfaces;
 
 namespace Typescript.Internal.Services;
 
-public class CsharpToTypescript
+public class CsharpToTypescript : ICsharpToTypescript
 {
-    private static HashSet<string> globalConvertedTypes;
+    public HashSet<string>? globalConvertedTypes { get; set; }
 
-    public static void SetGlobalConvertedTypes(HashSet<string> value)
-    {
-        globalConvertedTypes = value;
-    }
-
-    public static TsType GenerateInterfaces(INamedTypeSymbol symbol, string currentRelativeFolder,
+    public TsType GenerateInterfaces(INamedTypeSymbol symbol, string currentRelativeFolder,
         string basePath, IEnumerable<string> folders)
     {
         var dependencies = new HashSet<INamedTypeSymbol>();
@@ -29,8 +25,8 @@ public class CsharpToTypescript
             var nullableType = GetNullableType(propType);
             ITypeSymbol effectiveType = nullableType ?? arrayType ?? propType;
 
-            // Skip the current type (symbol) to prevent self-import
-            if (effectiveType != symbol && !IsPrimitive(effectiveType) && globalConvertedTypes.Contains(effectiveType.Name))
+            if (effectiveType != symbol && !IsPrimitive(effectiveType) &&
+                globalConvertedTypes.Contains(effectiveType.Name))
             {
                 if (effectiveType is INamedTypeSymbol depSymbol)
                 {
@@ -40,12 +36,13 @@ public class CsharpToTypescript
 
             if (propType is INamedTypeSymbol namedPropType && namedPropType.IsGenericType)
             {
-                if (namedPropType.AllInterfaces.Any(i => i.OriginalDefinition.ToString() == "System.Collections.Generic.IEnumerable<T>") ||
-                    namedPropType.Name == "ICollection" || namedPropType.Name == "List" || namedPropType.Name == "IEnumerable")
+                if (namedPropType.AllInterfaces.Any(i =>
+                        i.OriginalDefinition.ToString() == "System.Collections.Generic.IEnumerable<T>") ||
+                    namedPropType.Name == "ICollection" || namedPropType.Name == "List" ||
+                    namedPropType.Name == "IEnumerable")
                 {
                     foreach (var arg in namedPropType.TypeArguments)
                     {
-                        // Skip the current type (symbol) for type arguments
                         if (arg != symbol && !IsPrimitive(arg) && globalConvertedTypes.Contains(arg.Name))
                         {
                             if (arg is INamedTypeSymbol depSymbol)
@@ -61,15 +58,15 @@ public class CsharpToTypescript
         var importLines = new List<string>();
         foreach (var dep in dependencies)
         {
-            string depFileName = StringUtils.FirstCharToLowerCase(dep.Name);
-            string depRelFolder = Paths.GetPredefinedOutputFolder(dep.Name, folders);
+            var depFileName = StringUtils.FirstCharToLowerCase(dep.Name);
+            var depRelFolder = Paths.GetPredefinedOutputFolder(dep.Name, folders);
             if (string.IsNullOrEmpty(depRelFolder))
             {
-                string key = StringUtils.GetFirstWord(dep.Name);
+                var key = StringUtils.GetFirstWord(dep.Name);
                 depRelFolder = key.ToLower();
             }
 
-            string importPath = Paths.GetRelativeImportPath(currentRelativeFolder, depRelFolder, basePath, depFileName);
+            var importPath = Paths.GetRelativeImportPath(currentRelativeFolder, depRelFolder, basePath, depFileName);
             importLines.Add($"import {{ {dep.Name} }} from '{importPath}';");
         }
 
@@ -89,11 +86,11 @@ public class CsharpToTypescript
             ConvertClassOrInterface(lines, symbol);
         }
 
-        string filename = $"{symbol.Name}.ts";
+        var filename = $"{symbol.Name}.ts";
         return new TsType { Name = filename, Lines = lines.ToArray() };
     }
 
-    private static void ConvertClassOrInterface(List<string> lines, INamedTypeSymbol symbol)
+    private void ConvertClassOrInterface(List<string> lines, INamedTypeSymbol symbol)
     {
         lines.Add($"export interface {symbol.Name} {{");
         foreach (var member in symbol.GetMembers().OfType<IPropertySymbol>())
@@ -102,17 +99,18 @@ public class CsharpToTypescript
                 continue;
             if (member.Name.Contains("Navigation"))
                 continue;
-            
+
             if (!member.IsIndexer)
             {
-                // Regular property handling
                 ITypeSymbol propType = member.Type;
                 var arrayType = GetArrayOrEnumerableType(propType);
                 var nullableType = GetNullableType(propType);
+
                 ITypeSymbol typeToUse = nullableType ?? arrayType ?? propType;
-                string convertedType = ConvertType(typeToUse);
-                string suffix = arrayType != null ? "[]" : "";
-                suffix = nullableType != null ? " | null" : suffix;
+                var convertedType = ConvertType(typeToUse);
+                var suffix = arrayType is not null ? "[]" : "";
+                suffix = nullableType is not null ? " | null" : suffix;
+
                 lines.Add($"  {StringUtils.CamelCaseName(member.Name)}: {convertedType}{suffix};");
             }
         }
@@ -120,11 +118,11 @@ public class CsharpToTypescript
         lines.Add("}");
     }
 
-    private static string ConvertType(ITypeSymbol typeSymbol)
+    private string ConvertType(ITypeSymbol typeSymbol)
     {
         if (typeSymbol.SpecialType == SpecialType.System_Object)
         {
-            return (globalConvertedTypes != null && globalConvertedTypes.Contains(typeSymbol.Name))
+            return globalConvertedTypes is not null && globalConvertedTypes.Contains(typeSymbol.Name)
                 ? typeSymbol.Name
                 : "any";
         }
@@ -141,14 +139,16 @@ public class CsharpToTypescript
 
         if (typeSymbol is INamedTypeSymbol namedType && namedType.IsGenericType)
         {
-            if (namedType.ConstructedFrom.ToString().StartsWith("List") ||
-                namedType.ConstructedFrom.ToString().StartsWith("IEnumerable") ||
-                namedType.ConstructedFrom.ToString().StartsWith("ICollection"))
+            var stringifiedConstructedFrom = namedType.ConstructedFrom.ToString();
+            if (stringifiedConstructedFrom is null) return typeSymbol.Name;
+
+            if (Constants.ListLikeInterfaces.Any(x => stringifiedConstructedFrom.StartsWith(x)))
             {
                 var elementType = namedType.TypeArguments[0];
                 return $"{ConvertType(elementType)}[]";
             }
-            if (namedType.ConstructedFrom.ToString().StartsWith("IDictionary"))
+
+            if (Constants.DictionaryLikeInterfaces.Any(x => stringifiedConstructedFrom.StartsWith(x)))
             {
                 var keyType = namedType.TypeArguments[0];
                 var valueType = namedType.TypeArguments[1];
@@ -159,19 +159,19 @@ public class CsharpToTypescript
         return typeSymbol.Name;
     }
 
-    private static void ConvertEnum(List<string> lines, INamedTypeSymbol symbol)
+    private void ConvertEnum(List<string> lines, INamedTypeSymbol symbol)
     {
-        var members = symbol.GetMembers().OfType<IFieldSymbol>().Where(f => f.ConstantValue != null).ToList();
+        var members = symbol.GetMembers().OfType<IFieldSymbol>().Where(f => f.ConstantValue is not null).ToList();
         lines.Add($"export enum {symbol.Name} {{");
         foreach (var member in members)
         {
-            lines.Add($"  {member.Name} = {member.ConstantValue},");
+            lines.Add($"  {StringUtils.PascalToUppercaseWithUnderscores(member.Name)} = {member.ConstantValue},");
         }
 
         lines.Add("}");
     }
 
-    private static INamedTypeSymbol GetArrayOrEnumerableType(ITypeSymbol typeSymbol)
+    private INamedTypeSymbol? GetArrayOrEnumerableType(ITypeSymbol typeSymbol)
     {
         if (typeSymbol is IArrayTypeSymbol arrayType)
         {
@@ -180,9 +180,9 @@ public class CsharpToTypescript
 
         if (typeSymbol is INamedTypeSymbol namedType && namedType.IsGenericType)
         {
-            if (namedType.ConstructedFrom.ToString().StartsWith("System.Collections.Generic.List") ||
-                namedType.ConstructedFrom.ToString().StartsWith("System.Collections.Generic.IEnumerable") ||
-                namedType.ConstructedFrom.ToString().StartsWith("System.Collections.Generic.ICollection"))
+            var stringifiedConstructedFrom = namedType.ConstructedFrom.ToString();
+            if (stringifiedConstructedFrom is null) return null;
+            if (Constants.ListLikeInterfaces.Any(x => stringifiedConstructedFrom.StartsWith(x)))
             {
                 return namedType.TypeArguments[0] as INamedTypeSymbol;
             }
@@ -199,7 +199,7 @@ public class CsharpToTypescript
         return null;
     }
 
-    private static ITypeSymbol? GetNullableType(ITypeSymbol typeSymbol)
+    private ITypeSymbol? GetNullableType(ITypeSymbol typeSymbol)
     {
         if (typeSymbol is INamedTypeSymbol namedType &&
             namedType.OriginalDefinition.ToString() == "System.Nullable<T>")
@@ -210,7 +210,7 @@ public class CsharpToTypescript
         return null;
     }
 
-    private static bool IsPrimitive(ITypeSymbol typeSymbol)
+    private bool IsPrimitive(ITypeSymbol typeSymbol)
     {
         return Constants.ConvertedTypes.ContainsKey(typeSymbol.ToString()) ||
                Constants.ConvertedTypes.ContainsKey(typeSymbol.Name);
