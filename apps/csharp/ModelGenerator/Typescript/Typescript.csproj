@@ -7,8 +7,30 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
-      <PackageReference Include="PluralizeService.Core" Version="1.2.21147.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0"/>
+        <PackageReference Include="PluralizeService.Core" Version="1.2.21147.2"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <PackageId>MateusTech.ModelGenerator.Typescript</PackageId>
+        <PackageTags>Typescript;Convert;Transpiler;C#;To Typescript;Autoconvert</PackageTags>
+        <Version>1.0.0-alpha</Version>
+        <Author>Mateus Slezinsky Pereira</Author>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/mateusslezinsky/model-generator</RepositoryUrl>
+        <Description>
+            Rewriting models in TypeScript can be a real headache, especially when your application is large and complex. Manually updating TypeScript models every time your C# models change is not only tedious but also error-prone.
+            This tool generates TypeScript models from C# models, making it easy to keep your TypeScript models in sync with your C# models.
+        </Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>logo.png</PackageIcon>
+        <Copyright>Copyright (c) Mateus Slezinsky Pereira 2025.</Copyright>
+        <PackageReleaseNotes>Initial alpha release.</PackageReleaseNotes>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+        <None Include="logo.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
